@@ -6,13 +6,13 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:30:33 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/14 21:48:26 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:54:27 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "ft_printf.h"
-
+/*
 char	*ft_output(char *s)
 {
 	int i;
@@ -25,26 +25,26 @@ char	*ft_output(char *s)
 	}
 	return((char *)&s[i]);
 }
-
-int	ft_check_format(char **s, va_list ap, int *size)
+*/
+int	ft_check_format(const char **s, va_list ap, int *size)
 {
 	int		flags[5];
 
 	ft_flags(flags);
-	if (*s == '%' && ++*s == '%')
+	if (**s == '%' && **++s == '%')
 	{
-		*s += 2;
+		s++;
 		return (1);
 	}
-	if (*s == '%' && ++*s == '\0')
+	if (**s == '%' && **++s == '\0')
 		return (-1);
-	if (*s == '%' && ++*s != '\0')
+	if (**s == '%' && **++s != '\0')
 	{
 		ft_check_flags(s, flags);
 		ft_check_width(s, flags, ap);
-		if (*s == '.')
+		if (**s == '.')
 			ft_check_adot(s, flags, ap);
-		return (ft_chech_type(s, flags, ap, size);
+		return (ft_chech_type(s, flags, ap, size));
 	}
 	return (-1);
 }

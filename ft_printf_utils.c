@@ -6,7 +6,7 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:42:52 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/14 21:48:33 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:54:33 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,23 @@ int	ft_strlen(const char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
+}
+
+int	ft_len_int(int i)
+{
+	int len;
+
+	len = 0;
+	if (i < 0)
+		i *= (-1);
+	else
+		while (i > 9)
+		{
+			i /= 10;
+			len++;
+		}
+	len++;
+	return(len);
 }
 
 void	ft_putstr(char *s)
@@ -59,41 +76,29 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-int	ft_strlen_proc(char *str)
+int	ft_atoi(const char *str)
 {
-	int i;
+	int				i;
+	unsigned long	r;
+	int				z;
 
 	i = 0;
-	while (str[i] != '%')
+	r = 0;
+	z = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		i++;
-	if (str[i] == '%' && str[i + 1] == '%')
-		i++;
-	return (i);
-}
-
-char	*ft_strdup_proc(char *src)
-{
-	int		i;
-	int		l;
-	char	*src2;
-
-	l = ft_strlen_proc(src);
-	src2 = (char *)malloc(sizeof(char) * (l + 1));
-	if (src2 == NULL)
-		return (NULL);
-	i = 0;
-	while (src[i] != '%')
+	if (str[i] == '+' || str[i] == '-')
 	{
-		src2[i] = src[i];
+		if (str[i] == '-')
+			z = -1;
 		i++;
 	}
-	if (src[i] == '%' && src[i + 1] == '%')
+	while (str[i] >= 48 && str[i] <= 57)
 	{
-		src2[i] = '%';
+		r = r * 10 + (str[i] - '0');
 		i++;
 	}
-	src2[i] = '\0';
-	return (src2);
+	if (r >= 9223372036854775807UL)
+		return (z == 1 ? -1 : 0);
+	return (r * z);
 }
-
-
