@@ -6,15 +6,15 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:27:37 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/17 09:11:46 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/17 23:20:52 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	while_print(int *flag,char *cp, int l, int n)
+int while_print(int *flag, char *cp, int l, int n)
 {
-	int	r;
+	int r;
 
 	r = 0;
 	if (n == 1)
@@ -29,20 +29,20 @@ int	while_print(int *flag,char *cp, int l, int n)
 	else if (n == 4)
 		while (r < l)
 			r += write(1, " ", 1);
-	ft_putstr(cp);
+	r += ft_putstr(cp);
 	return (r);
 }
 
-int	if_flags_w(int *flag, char *cp, int l)
+int if_flags_w(int *flag, char *cp, int l)
 {
-	int	r;
+	int r;
 
 	r = 0;
-	if(flag[0] == 1)
+	if (flag[0] == 1)
 		r += while_print(flag, cp, l, 2);
 	else if (flag[1] == 1)
 	{
-		ft_putstr(cp);
+		r += ft_putstr(cp);
 		while (r < (flag[2] - l))
 			r += write(1, " ", 1);
 	}
@@ -51,9 +51,9 @@ int	if_flags_w(int *flag, char *cp, int l)
 	return (r);
 }
 
-int	if_flags23(int *flag, char *cp, int l)
+int if_flags23(int *flag, char *cp, int l)
 {
-	int	r;
+	int r;
 
 	r = 0;
 	if (flag[2] < flag[3])
@@ -67,8 +67,8 @@ int	if_flags23(int *flag, char *cp, int l)
 		}
 		else
 		{
-			if(flag[3] <= l)
-			   r += while_print(flag, cp, l, 3);
+			if (flag[3] <= l)
+				r += while_print(flag, cp, l, 3);
 			else
 			{
 				r += while_print(flag, cp, flag[2] - flag[3], 4);
@@ -79,12 +79,12 @@ int	if_flags23(int *flag, char *cp, int l)
 	return (r);
 }
 
-int	ft_print_int(va_list ap, int *flag)
+int ft_print_int(va_list ap, int *flag)
 {
-	int	arg;
-	int	l;
-	int	r;
-	char	*cp;
+	int arg;
+	int l;
+	int r;
+	char *cp;
 
 	r = 0;
 	arg = va_arg(ap, int);
@@ -98,8 +98,7 @@ int	ft_print_int(va_list ap, int *flag)
 		r += while_print(flag, cp, l, 1);
 	else
 	{
-		ft_putstr(cp);
-		r += l;
+		r += ft_putstr(cp);
 	}
 	return (r);
 }

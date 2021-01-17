@@ -6,13 +6,13 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:42:52 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/17 09:11:42 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/17 23:16:17 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_strlen(const char *str)
+int ft_strlen(const char *str)
 {
 	int i;
 
@@ -22,7 +22,7 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-int	ft_len_int(int i)
+int ft_len_int(int i)
 {
 	int len;
 
@@ -35,27 +35,26 @@ int	ft_len_int(int i)
 			len++;
 			i /= 10;
 		}
-	return(len);
+	return (len);
 }
 
-void	ft_putstr(char *s)
+int ft_putstr(char *s)
 {
 	int i;
 
 	i = 0;
-	if (!s)
-		return ;
 	while (s[i])
 	{
 		write(1, &s[i], 1);
 		i++;
 	}
+	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char *ft_strchr(const char *s, int c)
 {
-	size_t	i;
-	char	*ni;
+	size_t i;
+	char *ni;
 
 	i = 0;
 	while (s[i] != '\0')
@@ -75,11 +74,11 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-int	ft_atoi(const char *str)
+int ft_atoi(const char *str)
 {
-	int				i;
-	unsigned long	r;
-	int				z;
+	int i;
+	unsigned long r;
+	int z;
 
 	i = 0;
 	r = 0;

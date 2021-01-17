@@ -23,9 +23,9 @@ int	main()
 	printf("[%s]\n", "abcdefg");
 	printf("[%*.*s]\n\n", -8, 2, "abcdefg");
 */	
-	printf("[%0*c]\n", 4, 'v');
+	printf("[%-*.*c]\n", 4, 3, 'v');
 	printf("[%-c]\n", 'v');
-	printf("[%-*c]\n\n", 4, 'v');
+	printf("[%*c]\n\n", 4, 'v');
 
 //	printf("[%-*p]\n", 20, "123");
 

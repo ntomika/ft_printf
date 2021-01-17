@@ -6,14 +6,14 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:30:33 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/17 09:11:32 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/17 23:22:01 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "ft_printf.h"
 
-void	ft_flags(int *flag)
+void ft_flags(int *flag)
 {
 	flag[0] = 0;
 	flag[1] = 0;
@@ -22,9 +22,9 @@ void	ft_flags(int *flag)
 	flag[4] = 0;
 }
 
-int	ft_check_format(const char **s, va_list ap, int *size)
+int ft_check_format(const char **s, va_list ap, int *size)
 {
-	int		flags[5];
+	int flags[5];
 
 	ft_flags(flags);
 	ft_check_flags(s, flags);
@@ -37,11 +37,11 @@ int	ft_check_format(const char **s, va_list ap, int *size)
 	return (ft_check_type(s, flags, ap, size));
 }
 
-int	ft_printf(const char *s, ...)
+int ft_printf(const char *s, ...)
 {
-	va_list	ap;
-	int	size;
-	
+	va_list ap;
+	int size;
+
 	size = 0;
 	va_start(ap, s);
 	if (!s)
@@ -67,15 +67,15 @@ int	ft_printf(const char *s, ...)
 	return (size);
 }
 
-int	main(void)
+int main(void)
 {
-//	char *s = "erfgerhglrj";
+	//	char *s = "erfgerhglrj";
 
 	printf("[fake] : \n");
-	printf("%d\n", ft_printf("write [%-*c] symbol\n", 5, '%'));
+	printf("%d\n", ft_printf("write [%0*-d] symbol\n", 10, 123));
 	printf("\n");
 	printf("[original] : \n");
-	printf("%d\n", printf("write [%*c] symbol\n", 5, '%'));
+	printf("%d\n", printf("write [%0*-d] symbol\n", 10, 123));
 	printf("\n");
 	return (0);
 }
