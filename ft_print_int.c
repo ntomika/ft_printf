@@ -6,37 +6,100 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:27:37 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/15 17:54:24 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/17 09:11:46 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_int(va_list ap, int *flags)
+int	while_print(int *flag,char *cp, int l, int n)
 {
-	int	p;
-	int	l;
 	int	r;
 
-	p = va_arg(ap, int);
-	l = ft_len_int(p);
-	if (flags[4] > 0)
-		flags[0] = 0;
-	if((flags[2] > 0 && len < flags[2]) ||
-			(flags[3] > 0 && len < flags[3]))		//если есть '-' -- 
-													//выравнивание по левому краю
-													//если нет -- по правому, 
-													//длину вывода дополнить 
-													//пробелами/нулями 
-													//(в зависимости от значения 
-													//ширины)
-		ft_edit_width();
-	if(flags[3] == 0 && p == 0)
-		len = 0;
-	if(flags[2] > flags[3])
-		ft_wp();
-	else if(flags[2] < flags[3])
-		ft_p();
+	r = 0;
+	if (n == 1)
+		while (r < (flag[3] - l))
+			r += write(1, "0", 1);
+	else if (n == 2)
+		while (r < (flag[2] - l))
+			r += write(1, "0", 1);
+	else if (n == 3)
+		while (r < (flag[2] - l))
+			r += write(1, " ", 1);
+	else if (n == 4)
+		while (r < l)
+			r += write(1, " ", 1);
+	ft_putstr(cp);
+	return (r);
+}
 
+int	if_flags_w(int *flag, char *cp, int l)
+{
+	int	r;
+
+	r = 0;
+	if(flag[0] == 1)
+		r += while_print(flag, cp, l, 2);
+	else if (flag[1] == 1)
+	{
+		ft_putstr(cp);
+		while (r < (flag[2] - l))
+			r += write(1, " ", 1);
+	}
+	else
+		r += while_print(flag, cp, l, 3);
+	return (r);
+}
+
+int	if_flags23(int *flag, char *cp, int l)
+{
+	int	r;
+
+	r = 0;
+	if (flag[2] < flag[3])
+		r += while_print(flag, cp, l, 1);
+	else
+	{
+		if (flag[1] == 1)
+		{
+			r += while_print(flag, cp, l, 1);
+			r += while_print(flag, cp, l, 3);
+		}
+		else
+		{
+			if(flag[3] <= l)
+			   r += while_print(flag, cp, l, 3);
+			else
+			{
+				r += while_print(flag, cp, flag[2] - flag[3], 4);
+				r += while_print(flag, cp, l, 1);
+			}
+		}
+	}
+	return (r);
+}
+
+int	ft_print_int(va_list ap, int *flag)
+{
+	int	arg;
+	int	l;
+	int	r;
+	char	*cp;
+
+	r = 0;
+	arg = va_arg(ap, int);
+	l = ft_len_int(arg);
+	cp = ft_itoa(arg);
+	if (flag[2] > 0 && flag[3] > 0)
+		r += if_flags23(flag, cp, l);
+	else if (flag[2] > 0)
+		r += if_flags_w(flag, cp, l);
+	else if (flag[3] > 0)
+		r += while_print(flag, cp, l, 1);
+	else
+	{
+		ft_putstr(cp);
+		r += l;
+	}
 	return (r);
 }

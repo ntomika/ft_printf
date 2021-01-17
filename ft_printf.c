@@ -6,47 +6,35 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:30:33 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/15 17:54:27 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/17 09:11:32 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "ft_printf.h"
-/*
-char	*ft_output(char *s)
-{
-	int i;
 
-	i = 0;
-	while (s[i] != '%' && s[i] != '\0')
-	{
-		write(1, &s[i], 1);
-		i++;
-	}
-	return((char *)&s[i]);
+void	ft_flags(int *flag)
+{
+	flag[0] = 0;
+	flag[1] = 0;
+	flag[2] = 0;
+	flag[3] = 0;
+	flag[4] = 0;
 }
-*/
+
 int	ft_check_format(const char **s, va_list ap, int *size)
 {
 	int		flags[5];
 
 	ft_flags(flags);
-	if (**s == '%' && **++s == '%')
+	ft_check_flags(s, flags);
+	ft_check_width(s, flags, ap);
+	if (**s == '.')
 	{
 		s++;
-		return (1);
+		ft_check_adot(s, flags, ap);
 	}
-	if (**s == '%' && **++s == '\0')
-		return (-1);
-	if (**s == '%' && **++s != '\0')
-	{
-		ft_check_flags(s, flags);
-		ft_check_width(s, flags, ap);
-		if (**s == '.')
-			ft_check_adot(s, flags, ap);
-		return (ft_chech_type(s, flags, ap, size));
-	}
-	return (-1);
+	return (ft_check_type(s, flags, ap, size));
 }
 
 int	ft_printf(const char *s, ...)
@@ -55,22 +43,26 @@ int	ft_printf(const char *s, ...)
 	int	size;
 	
 	size = 0;
+	va_start(ap, s);
 	if (!s)
 		return (-1);
-	va_start(ap, s);
+	if (!(ft_strchr(s, '%')))
+	{
+		ft_putstr((char *)s);
+		return (ft_strlen(s));
+	}
 	while (*s)
 	{
-		if (!(ft_strchr(s, '%')))
+		if (*s == '%')
 		{
-			ft_putstr((char *)s);
-			return (ft_strlen(s));
-		}
-		else if (*s == '%')
+			s++;
 			if (!(ft_check_format(&s, ap, &size)))
 				return (-1);
-		s++;
+			s++;
+		}
+		else
+			size += write(1, s++, 1);
 	}
-
 	va_end(ap);
 	return (size);
 }
@@ -80,10 +72,10 @@ int	main(void)
 //	char *s = "erfgerhglrj";
 
 	printf("[fake] : \n");
-	printf("%d\n", ft_printf("write %d int\n", 10));
+	printf("%d\n", ft_printf("write [%-*c] symbol\n", 5, '%'));
 	printf("\n");
 	printf("[original] : \n");
-	printf("%d\n", ft_printf("write %d int\n", 10));
+	printf("%d\n", printf("write [%*c] symbol\n", 5, '%'));
 	printf("\n");
 	return (0);
 }

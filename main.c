@@ -2,10 +2,9 @@
 
 int	main()
 {
-/*
-	printf("[%*d]\n", 5, 123);
-	printf("[%.*d]\n", 5, 123);
-	printf("[%d]\n\n", 123);
+/*	printf("[%*.*d]\n", 10, -5, 123);
+	printf("%d", printf("[%-*.*d]\n", 10, 5, 123));
+	printf("[%-.*d]\n\n", 1, 123);
 
 	printf("[%-*.*x]\n", 10, 8, 1996);
 	printf("[%.*x]\n", 8, 1996);
@@ -23,14 +22,15 @@ int	main()
 	printf("[%.*s]\n", 1, "abcdefg");
 	printf("[%s]\n", "abcdefg");
 	printf("[%*.*s]\n\n", -8, 2, "abcdefg");
-	
-	printf("[%*c]\n", 4, 'v');
-	printf("[%c]\n", 'v');
-	printf("[%-*c]\n\n", -8, 'v');
+*/	
+	printf("[%0*c]\n", 4, 'v');
+	printf("[%-c]\n", 'v');
+	printf("[%-*c]\n\n", 4, 'v');
 
-	printf("[%-*p]\n", 20, "123");
-*/
-//	printf("%%d");
-	printf( "%d", printf("%%d\n"));
+//	printf("[%-*p]\n", 20, "123");
+
+//	printf("%d", printf("%-d", 123));
+
+//	printf( "%d", printf("%%d\n"));
 
 }
