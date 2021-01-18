@@ -6,7 +6,7 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:27:37 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/17 23:20:52 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/18 22:16:05 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int while_print(int *flag, char *cp, int l, int n)
 	int r;
 
 	r = 0;
+
 	if (n == 1)
 		while (r < (flag[3] - l))
 			r += write(1, "0", 1);
@@ -27,8 +28,11 @@ int while_print(int *flag, char *cp, int l, int n)
 		while (r < (flag[2] - l))
 			r += write(1, " ", 1);
 	else if (n == 4)
+	{
 		while (r < l)
 			r += write(1, " ", 1);
+		return (r);
+	}
 	r += ft_putstr(cp);
 	return (r);
 }
@@ -36,15 +40,18 @@ int while_print(int *flag, char *cp, int l, int n)
 int if_flags_w(int *flag, char *cp, int l)
 {
 	int r;
+	int i;
 
 	r = 0;
+	i = 0;
 	if (flag[0] == 1)
 		r += while_print(flag, cp, l, 2);
 	else if (flag[1] == 1)
 	{
 		r += ft_putstr(cp);
-		while (r < (flag[2] - l))
-			r += write(1, " ", 1);
+		while (i < (flag[2] - l))
+			i += write(1, " ", 1);
+		r += i;
 	}
 	else
 		r += while_print(flag, cp, l, 3);
@@ -54,8 +61,10 @@ int if_flags_w(int *flag, char *cp, int l)
 int if_flags23(int *flag, char *cp, int l)
 {
 	int r;
+	int i;
 
 	r = 0;
+	i = 0;
 	if (flag[2] < flag[3])
 		r += while_print(flag, cp, l, 1);
 	else
@@ -63,7 +72,9 @@ int if_flags23(int *flag, char *cp, int l)
 		if (flag[1] == 1)
 		{
 			r += while_print(flag, cp, l, 1);
-			r += while_print(flag, cp, l, 3);
+			while (i < (flag[2] - flag[3]))
+				i += write(1, " ", 1);
+			r += i;
 		}
 		else
 		{
@@ -97,8 +108,6 @@ int ft_print_int(va_list ap, int *flag)
 	else if (flag[3] > 0)
 		r += while_print(flag, cp, l, 1);
 	else
-	{
 		r += ft_putstr(cp);
-	}
 	return (r);
 }

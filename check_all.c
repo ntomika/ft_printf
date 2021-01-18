@@ -6,7 +6,7 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 19:54:43 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/17 22:49:52 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/18 21:21:29 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void ft_check_width(const char **s, int *flag, va_list ap)
 
 void ft_check_adot(const char **s, int *flag, va_list ap)
 {
+	*s += 1;
 	if (**s == '*')
 	{
 		flag[3] = va_arg(ap, int);
@@ -71,8 +72,8 @@ int ft_check_type(const char **s, int *flag, va_list ap, int *size)
 	rez = 0;
 	if (**s == 'd' || **s == 'i')
 		rez = ft_print_int(ap, flag);
-	//	else if (**s == 'u')
-	//		rez = ft_print_unsigned(ap, flag);
+	else if (**s == 'u')
+		rez = ft_print_unsigned(ap, flag);
 	//	else if (**s == 'x')
 	//		rez = ft_print_16x(ap, flag);
 	//	else if (**s == 'X')

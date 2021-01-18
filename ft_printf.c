@@ -6,11 +6,10 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:30:33 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/17 23:22:01 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/18 22:22:09 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "ft_printf.h"
 
 void ft_flags(int *flag)
@@ -31,7 +30,6 @@ int ft_check_format(const char **s, va_list ap, int *size)
 	ft_check_width(s, flags, ap);
 	if (**s == '.')
 	{
-		s++;
 		ft_check_adot(s, flags, ap);
 	}
 	return (ft_check_type(s, flags, ap, size));
@@ -66,16 +64,24 @@ int ft_printf(const char *s, ...)
 	va_end(ap);
 	return (size);
 }
-
+/*
 int main(void)
 {
 	//	char *s = "erfgerhglrj";
-
+	printf("POMOGITEEEE ZADOLBALOOOOO\n\n\n\n");
 	printf("[fake] : \n");
-	printf("%d\n", ft_printf("write [%0*-d] symbol\n", 10, 123));
+	printf("%d\n", ft_printf("write [%-10.7d] int\n", 12345));
 	printf("\n");
 	printf("[original] : \n");
-	printf("%d\n", printf("write [%0*-d] symbol\n", 10, 123));
+	printf("%d\n", printf("write [%-10.7d] int\n", 12345));
+	printf("\n");
+
+	printf("[fake] : \n");
+	printf("%d\n", ft_printf("write [%-c] symbol\n", 'v'));
+	printf("\n");
+	printf("[original] : \n");
+	printf("%d\n", printf("write [%-c] symbol\n", 'v'));
 	printf("\n");
 	return (0);
 }
+*/

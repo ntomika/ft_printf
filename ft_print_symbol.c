@@ -27,7 +27,7 @@ int ft_print_symbol(va_list ap, int *flag)
 	}
 	else if (flag[1] == 0 && flag[2] > 1)
 	{
-		while (r <= (flag[2] - 1))
+		while (r < (flag[2] - 1))
 			r += write(1, " ", 1);
 		r += write(1, &c, 1);
 	}
