@@ -6,7 +6,8 @@ NAME		= libftprintf.a
 INCLUDE		= -I ./
 
 SRC			= ft_printf.c check_all.c ft_itoa.c ft_print_int.c \
-			ft_print_symbol.c ft_printf_utils.c ft_print_unsigned.c main.c
+			ft_print_symbol.c ft_printf_utils.c ft_print_unsigned.c \
+			ft_print_string.c main.c
 
 OBJS 		= $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:30:33 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/18 22:22:09 by ntomika          ###   ########.fr       */
+/*   Updated: 2021/01/19 20:28:36 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,26 @@ void ft_flags(int *flag)
 	flag[2] = 0;
 	flag[3] = 0;
 	flag[4] = 0;
+	flag[5] = 0;
 }
 
 int ft_check_format(const char **s, va_list ap, int *size)
 {
-	int flags[5];
+	int flags[6];
 
 	ft_flags(flags);
 	ft_check_flags(s, flags);
 	ft_check_width(s, flags, ap);
 	if (**s == '.')
 	{
+		*s += 1;
+		if (**s == '0' || **s == 'd' || **s == 'i' || **s == 's' || **s == 'c' \
+				|| **s == 'x' || **s == 'X' || **s == 'u' || **s == 'p')
+		{
+			flags[3] = -2;
+			if (**s == '0')
+				*s += 1;
+		}
 		ft_check_adot(s, flags, ap);
 	}
 	return (ft_check_type(s, flags, ap, size));
@@ -64,24 +73,3 @@ int ft_printf(const char *s, ...)
 	va_end(ap);
 	return (size);
 }
-/*
-int main(void)
-{
-	//	char *s = "erfgerhglrj";
-	printf("POMOGITEEEE ZADOLBALOOOOO\n\n\n\n");
-	printf("[fake] : \n");
-	printf("%d\n", ft_printf("write [%-10.7d] int\n", 12345));
-	printf("\n");
-	printf("[original] : \n");
-	printf("%d\n", printf("write [%-10.7d] int\n", 12345));
-	printf("\n");
-
-	printf("[fake] : \n");
-	printf("%d\n", ft_printf("write [%-c] symbol\n", 'v'));
-	printf("\n");
-	printf("[original] : \n");
-	printf("%d\n", printf("write [%-c] symbol\n", 'v'));
-	printf("\n");
-	return (0);
-}
-*/

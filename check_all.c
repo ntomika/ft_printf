@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntomika <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ntomika <ntomika@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/14 19:54:43 by ntomika           #+#    #+#             */
-/*   Updated: 2021/01/18 21:21:29 by ntomika          ###   ########.fr       */
+/*   Created: 2021/01/19 14:16:52 by ntomika           #+#    #+#             */
+/*   Updated: 2021/01/19 20:06:58 by ntomika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void ft_check_width(const char **s, int *flag, va_list ap)
 
 void ft_check_adot(const char **s, int *flag, va_list ap)
 {
-	*s += 1;
 	if (**s == '*')
 	{
 		flag[3] = va_arg(ap, int);
@@ -61,6 +60,8 @@ void ft_check_adot(const char **s, int *flag, va_list ap)
 		while (**s >= '0' && **s <= '9')
 			*s += 1;
 	}
+	if (flag[3] == -2)
+		return ;
 	if (flag[3] < 0)
 		flag[3] = -1;
 }
@@ -80,8 +81,8 @@ int ft_check_type(const char **s, int *flag, va_list ap, int *size)
 	//		rez = ft_print_16X(ap, flag);
 	else if (**s == 'c')
 		rez = ft_print_symbol(ap, flag);
-	//	else if (**s == 's')
-	//		rez = ft_print_string(ap, flag);
+	else if (**s == 's')
+		rez = ft_print_string(ap, flag);
 	//	else if (**s == 'p')
 	//		rez = ft_print_pointer(ap, flag);
 	else if (**s == '%')
